@@ -1,0 +1,259 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero bg-purple text-white py-5" style="background-color: #8a56ac;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-3">{{ profile.name|default:"Domian Wabwire" }}</h1>
+                <h2 class="h3 mb-4">{{ profile.title|default:"Software Developer" }}</h2>
+                <p class="lead mb-4">{{ profile.bio|default:"I build elegant solutions to complex problems using modern technologies and best practices." }}</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'portfolio' %}" class="btn btn-light btn-lg">View My Work</a>
+                    <a href="{% url 'resume' %}" class="btn btn-outline-light btn-lg">My Resume</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="img-fluid rounded-circle shadow" style="max-width: 300px;">
+                {% else %}
+                <img src="{% static 'portfolio/images/homepage4.jpg' %}" alt="Profile Image" class="img-fluid rounded-circle shadow" style="max-width: 300px;">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Summary Section -->
+<section class="py-5 bg-light" style="background-color: #f7f4f8 !important;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title" style="color: #8a56ac;">My Expertise</h2>
+            <p class="lead text-muted">Here are the technologies and skills I specialize in</p>
+        </div>
+
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-code fa-3x" style="color: #8a56ac;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Web Development</h3>
+                        <p>Building responsive and dynamic web applications using modern frameworks and technologies.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-mobile-alt fa-3x" style="color: #8a56ac;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Mobile Apps</h3>
+                        <p>Developing cross-platform mobile applications that provide seamless user experiences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-database fa-3x" style="color: #8a56ac;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Database Design</h3>
+                        <p>Creating efficient and scalable database structures optimized for performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title" style="color: #8a56ac;">Featured Projects</h2>
+            <p class="lead text-muted">A selection of my recent work</p>
+        </div>
+
+        <div class="row g-4">
+            {% for project in featured_projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'portfolio/images/homepage4.jpg' %}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="h5 card-title">{{ project.title }}</h3>
+                        <p class="card-text">{{ project.description|truncatewords:15 }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 pt-0">
+                        <div class="d-flex gap-2">
+                            <!-- Button to trigger modal -->
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal{{ project.id }}" style="background-color: #8a56ac; border-color: #8a56ac;">
+                                <i class="fas fa-eye me-1"></i> View Details
+                            </button>
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-sm btn-dark" target="_blank">
+                                <i class="fab fa-github me-1"></i> Code
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Modal -->
+            <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1" aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #f7f4f8;">
+                            <h5 class="modal-title" id="projectModalLabel{{ project.id }}" style="color: #8a56ac;">{{ project.title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if project.image %}
+                                    <img src="{{ project.image.url }}" class="img-fluid rounded" alt="{{ project.title }}">
+                                    {% else %}
+                                    <img src="{% static 'portfolio/images/homepage4.jpg' %}" class="img-fluid rounded" alt="{{ project.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold mb-2" style="color: #8a56ac;">Description</h6>
+                                    <p>{{ project.description }}</p>
+
+                                    <h6 class="fw-bold mt-3 mb-2" style="color: #8a56ac;">Created On</h6>
+                                    <p>{{ project.date_created|date:"F Y" }}</p>
+
+                                    {% if project.category %}
+                                    <h6 class="fw-bold mt-3 mb-2" style="color: #8a56ac;">Category</h6>
+                                    <p>{{ project.category }}</p>
+                                    {% endif %}
+
+                                    <div class="mt-4">
+                                        {% if project.url %}
+                                        <a href="{{ project.url }}" class="btn btn-primary me-2" target="_blank" style="background-color: #8a56ac; border-color: #8a56ac;">
+                                            <i class="fas fa-external-link-alt me-1"></i> Live Demo
+                                        </a>
+                                        {% endif %}
+                                        {% if project.github_url %}
+                                        <a href="{{ project.github_url }}" class="btn btn-dark" target="_blank">
+                                            <i class="fab fa-github me-1"></i> View Code
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Placeholder projects when no data exists -->
+            {% for i in "123" %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'portfolio/images/homepage4.jpg' %}" class="card-img-top" alt="Project {{ i }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Sample Project {{ i }}</h3>
+                        <p class="card-text">This is a placeholder for a project. Add your projects to see them here.</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 pt-0">
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-primary" style="background-color: #8a56ac; border-color: #8a56ac;">
+                                <i class="fas fa-external-link-alt me-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="btn btn-sm btn-dark">
+                                <i class="fab fa-github me-1"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{% url 'portfolio' %}" class="btn btn-outline-primary" style="color: #8a56ac; border-color: #8a56ac;">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="py-5" style="background-color: #f7f4f8;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="mb-4" style="color: #8a56ac;">Let's Work Together</h2>
+                <p class="lead mb-4">I'm currently available for freelance work and job opportunities. Feel free to reach out if you have a project in mind.</p>
+
+                <ul class="list-unstyled contact-info">
+                    <li class="mb-3">
+                        <i class="fas fa-map-marker-alt me-2" style="color: #8a56ac;"></i>
+                        <span>{{ profile.location|default:"Your Location" }}</span>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-envelope me-2" style="color: #8a56ac;"></i>
+                        <span>{{ profile.email|default:"info@domian.com" }}</span>
+                    </li>
+                    {% if profile.phone %}
+                    <li class="mb-3">
+                        <i class="fas fa-phone me-2" style="color: #8a56ac;"></i>
+                        <span>{{ profile.phone }}</span>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <div class="social-links mt-4">
+                    {% for link in social_links %}
+                    <a href="{{ link.url }}" class="btn btn-outline-dark me-2 mb-2" target="_blank">
+                        <i class="fab fa-{{ link.platform }}"></i>
+                    </a>
+                    {% empty %}
+                    <a href="#" class="btn btn-outline-dark me-2 mb-2">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-dark me-2 mb-2">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-dark me-2 mb-2">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4" style="color: #8a56ac;">Send Me a Message</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="Hi, I'd like to talk about..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="background-color: #8a56ac; border-color: #8a56ac;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

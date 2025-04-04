@@ -1,0 +1,376 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Resume Header -->
+<section class="bg-primary text-white py-5" style="background-color: #8a56ac;">
+    <div class="container">
+        <h1 class="display-4 fw-bold">My Resume</h1>
+        <p class="lead">Professional experience, education, and skills</p>
+        <a href="#" class="btn btn-light mt-3">
+            <i class="fas fa-download me-2"></i> Download PDF
+        </a>
+    </div>
+</section>
+
+<div class="container py-5">
+    <div class="row">
+
+          <a href="{% static 'portfolio/documents/resume.pdf' %}" class="btn btn-light mt-3" download>
+    <i class="fas fa-download me-2"></i> Download PDF
+</a>
+        <!-- Left Column: Education & Experience -->
+        <div class="col-lg-8 mb-5 mb-lg-0">
+            <!-- Experience Section -->
+            <div class="resume-section mb-5">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Experience</h2>
+
+                <div class="timeline">
+                    {% for exp in experience %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">{{ exp.title }}</h3>
+                                <span class="badge" style="background-color: #8a56ac;">{{ exp.company }}</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">
+                                {{ exp.date_start|date:"M Y" }} -
+                                {% if exp.current %}Present{% else %}{{ exp.date_end|date:"M Y" }}{% endif %}
+                            </div>
+                            <div class="timeline-description">
+                                <p>{{ exp.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <!-- Sample experience entries -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">Frontend Developer</h3>
+                                <span class="badge" style="background-color: #8a56ac;">Web Agency</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">Dec 2022 - Present</div>
+                            <div class="timeline-description">
+                                <p>Created responsive websites and applications using modern JavaScript frameworks. Collaborated with designers and backend developers to implement complete web solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">Web Designer</h3>
+                                <span class="badge" style="background-color: #8a56ac;">Design Studio</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">Jun 2020 - Nov 2022</div>
+                            <div class="timeline-description">
+                                <p>Designed user interfaces for websites and digital products. Created wireframes, prototypes, and final designs using industry-standard tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">Blockchain Developer</h3>
+                                <span class="badge" style="background-color: #8a56ac;">Crypto Startup</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">Jan 2019 - May 2020</div>
+                            <div class="timeline-description">
+                                <p>Developed smart contracts and decentralized applications (DApps) using Solidity and Web3.js. Implemented secure token systems and blockchain-based solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="resume-section">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Education</h2>
+
+                <div class="timeline">
+                    {% for edu in education %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">{{ edu.title }}</h3>
+                                <span class="badge" style="background-color: #8a56ac;">{{ edu.institution }}</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">
+                                {{ edu.year_start }} - {% if edu.year_end %}{{ edu.year_end }}{% else %}Present{% endif %}
+                            </div>
+                            <div class="timeline-description">
+                                <p>{{ edu.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <!-- Sample education entries -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">Bachelor of Computer Science</h3>
+                                <span class="badge" style="background-color: #8a56ac;">University Name</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">2018 - 2022</div>
+                            <div class="timeline-description">
+                                <p>Studied software development, algorithms, data structures, and computer architecture. Participated in coding competitions and student-led development projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background-color: #8a56ac;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header mb-2">
+                                <h3 class="h5 mb-0">Blockchain Development Certification</h3>
+                                <span class="badge" style="background-color: #8a56ac;">Blockchain Academy</span>
+                            </div>
+                            <div class="timeline-date text-muted mb-2">2017</div>
+                            <div class="timeline-description">
+                                <p>Specialized training in blockchain technologies, smart contract development, and decentralized application architecture.</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Skills -->
+        <div class="col-lg-4">
+            <!-- Design Skills -->
+            <div class="resume-section mb-5">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Design Skills</h2>
+
+                {% for skill in design_skills %}
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>{{ skill.name }}</span>
+                        <span>{{ skill.proficiency }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ skill.proficiency }}%; background-color: #8a56ac;" aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Sample design skills -->
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>UI/UX Design</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #8a56ac;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Wireframing</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #8a56ac;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Figma</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: #8a56ac;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Coding Skills -->
+            <div class="resume-section mb-5">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Coding Skills</h2>
+
+                {% for skill in coding_skills %}
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>{{ skill.name }}</span>
+                        <span>{{ skill.proficiency }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ skill.proficiency }}%; background-color: #8a56ac;" aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Sample coding skills -->
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>HTML/CSS</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: #8a56ac;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>JavaScript</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #8a56ac;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Python</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: #8a56ac;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Solidity</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: #8a56ac;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Tools/Frameworks -->
+            <div class="resume-section">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Tools & Frameworks</h2>
+
+                {% for skill in tool_skills %}
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>{{ skill.name }}</span>
+                        <span>{{ skill.proficiency }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ skill.proficiency }}%; background-color: #8a56ac;" aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Sample tools/frameworks -->
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>React</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #8a56ac;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Django</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #8a56ac;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Web3.js</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: #8a56ac;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Docker</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: #8a56ac;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+
+            <!-- Certifications Section -->
+            <div class="resume-section mt-5">
+                <h2 class="section-title border-bottom pb-2 mb-4" style="color: #8a56ac;">Certifications</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-start border-0 px-0">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Certified Blockchain Developer</div>
+                            Blockchain Council
+                        </div>
+                        <span class="badge rounded-pill" style="background-color: #8a56ac;">2023</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start border-0 px-0">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">AWS Certified Developer</div>
+                            Amazon Web Services
+                        </div>
+                        <span class="badge rounded-pill" style="background-color: #8a56ac;">2022</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start border-0 px-0">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">React Advanced Concepts</div>
+                            Frontend Masters
+                        </div>
+                        <span class="badge rounded-pill" style="background-color: #8a56ac;">2021</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS for timeline -->
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #8a56ac;
+    left: -30px;
+    top: 5px;
+}
+
+.timeline-marker:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: calc(100% + 40px);
+    background-color: #e9ecef;
+    left: 6px;
+    top: 15px;
+}
+
+.timeline-item:last-child .timeline-marker:before {
+    display: none;
+}
+
+.progress-bar {
+    background-color: #8a56ac;
+}
+</style>
+{% endblock %}
